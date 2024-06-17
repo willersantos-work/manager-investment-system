@@ -33,7 +33,7 @@ Para rodar e dar build do projeto localmente você precisará de algumas ferrament
 
 ```json
   "ConnectionStrings": {
-    "DefaultConnection": "String de conexão com banco" // (ex.: Host=localhost;Port=5433;Database=postgres;Username=admin;Password=admin)
+    "DefaultConnection": "String de conexão com banco" # (ex.: Host=localhost;Port=5433;Database=postgres;Username=admin;Password=admin)
   },
   "Logging": {
     "LogLevel": {
@@ -42,16 +42,16 @@ Para rodar e dar build do projeto localmente você precisará de algumas ferrament
     }
   },
   "AllowedHosts": "*",
-  "ProjectName": "Nome do projeto", // (InvestManagerSysten),
+  "ProjectName": "Nome do projeto", # (InvestManagerSysten),
   "TokenConfig": {
     "SecretToken": "Segredo para geração do token",
-    "TokenValidityDays": 1 // Quantidade de dias até expirar o token
+    "TokenValidityDays": 1 # Quantidade de dias até expirar o token
   },
   "EmailSettings": {
     "From": "Email outlook",
     "Password": "Senha do email",
-    "Host": "Host de envio de email", // (smtp-mail.outlook.com)
-    "Port": 587 // Porta default para envio pelo outlook
+    "Host": "Host de envio de email", # (smtp-mail.outlook.com)
+    "Port": 587 # Porta default para envio pelo outlook
   }
 ```
 
