@@ -4,7 +4,7 @@ namespace InvestManagerSystem.Services.AuthService
 {
     public interface IAuthService
     {
-        CredentialResponseDto LoginAdmin(CredentialDto credential);
-        CredentialResponseDto LoginClient(CredentialDto credential);
+        Task<CredentialResponseDto> LoginAdmin(CredentialDto credential);
+        Task<CredentialResponseDto> LoginClient(CredentialDto credential);
     }
 }

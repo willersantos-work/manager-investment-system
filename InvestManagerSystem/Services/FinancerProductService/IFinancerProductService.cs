@@ -6,7 +6,7 @@ namespace InvestManagerSystem.Services.FinancerProductService
     public interface IFinancerProductService
     {
         FinancerProduct Create(FinancerProductCreateDto data);
-        IList<FinancerProductDto> GetAll();
+        IList<FinancerProductListDto> GetAll();
         FinancerProductDto GetById(int id);
         FinancerProductDto GetByName(string name);
         void Update(FinancerProductUpdateDto data, int id);

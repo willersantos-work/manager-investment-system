@@ -20,12 +20,12 @@ namespace InvestManagerSystem.Services.AuthService
             _tokenService = tokenService;
         }
 
-        public CredentialResponseDto LoginAdmin(CredentialDto credential)
+        public async Task<CredentialResponseDto> LoginAdmin(CredentialDto credential)
         {
             try
             {
                 _logger.LogInformation($"start service {nameof(LoginAdmin)} - Request - {credential.Email}");
-                var response = Login(credential, UserTypeEnum.Admin);
+                var response = await Login(credential, UserTypeEnum.Admin);
                 _logger.LogInformation($"end service {nameof(LoginAdmin)} - Response - {JsonSerializer.Serialize(response)}");
                 return response;
             }
@@ -36,12 +36,12 @@ namespace InvestManagerSystem.Services.AuthService
             }
         }
 
-        public CredentialResponseDto LoginClient(CredentialDto credential)
+        public async Task<CredentialResponseDto> LoginClient(CredentialDto credential)
         {
             try
             {
                 _logger.LogInformation($"start service {nameof(LoginClient)} - Request - {credential.Email}");
-                var response = Login(credential, UserTypeEnum.Client);
+                var response = await Login(credential, UserTypeEnum.Client);
                 _logger.LogInformation($"end service {nameof(LoginClient)} - Response - {JsonSerializer.Serialize(response)}");
                 return response;
             }
@@ -52,19 +52,15 @@ namespace InvestManagerSystem.Services.AuthService
             }
         }
 
-        private CredentialResponseDto Login(CredentialDto credential, UserTypeEnum userType)
+        private async Task<CredentialResponseDto> Login(CredentialDto credential, UserTypeEnum userType)
         {
             try
             {
                 _logger.LogInformation($"start service {nameof(Login)} - Request - {credential.Email} {userType}");
                 UserSaveResponseDto user = _userService.VerifyCredential(credential, userType);
-                string accessToken = _tokenService.GenerateToken(user).Result;
+                string accessToken = await _tokenService.GenerateToken(user);
 
-                var response = new CredentialResponseDto
-                {
-                    User = user,
-                    AccessToken = accessToken
-                };
+                var response = new CredentialResponseDto(user, accessToken);
                 _logger.LogInformation($"end service {nameof(Login)} - Response - {JsonSerializer.Serialize(response)}");
                 return response;
             }

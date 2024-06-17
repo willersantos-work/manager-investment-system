@@ -51,7 +51,7 @@ namespace InvestManagerSystem.Services.FinancerProductService
                     Name = data.Name,
                     Description = data.Description,
                     InterestRate = data.InterestRate,
-                    MaturityDate = data.MaturityDate,
+                    MaturityDate = DateTime.SpecifyKind(data.MaturityDate, DateTimeKind.Local).ToUniversalTime(),
                     Type = data.Type,
                     Price = data.Price,
                     Quantity = data.Quantity,
@@ -68,13 +68,13 @@ namespace InvestManagerSystem.Services.FinancerProductService
             }
         }
 
-        public IList<FinancerProductDto> GetAll()
+        public IList<FinancerProductListDto> GetAll()
         {
             try
             {
                 _logger.LogInformation($"start service {nameof(GetAll)}");
                 IList<FinancerProduct> financerProducts = _repository.FindAll();
-                IList<FinancerProductDto> financerProductsDto = Mapper.Map<IList<FinancerProduct>, IList<FinancerProductDto>>(financerProducts); 
+                IList<FinancerProductListDto> financerProductsDto = Mapper.Map<IList<FinancerProduct>, IList<FinancerProductListDto>>(financerProducts); 
                 _logger.LogInformation($"end service {nameof(GetAll)} - Response - {JsonSerializer.Serialize(financerProductsDto)}");
                 return financerProductsDto;
             }
@@ -146,21 +146,17 @@ namespace InvestManagerSystem.Services.FinancerProductService
                     throw new CustomException(HttpStatusCode.NotFound, $"Financer Product with id {id} not found.");
                 }
 
-                var updatedEntity = new FinancerProduct
-                {
-                    Id = id,
-                    Name = data.Name ?? financerProduct.Name,
-                    Description = data.Description ?? financerProduct.Description,
-                    InterestRate = data.InterestRate ?? financerProduct.InterestRate,
-                    MaturityDate = data.MaturityDate ?? financerProduct.MaturityDate,
-                    Type = data.Type ?? financerProduct.Type,
-                    Price = data.Price ?? financerProduct.Price,
-                    Quantity = data.Quantity ?? financerProduct.Quantity,
-                    QuantityBought = data.QuantityBought ?? financerProduct.QuantityBought,
-                    CreatedDate = financerProduct.CreatedDate,
-                    UpdatedDate = DateTime.UtcNow
-                };
-                _repository.Update(updatedEntity);
+                financerProduct.Name = data.Name ?? financerProduct.Name;
+                financerProduct.Description = data.Description ?? financerProduct.Description;
+                financerProduct.InterestRate = data.InterestRate ?? financerProduct.InterestRate;
+                financerProduct.MaturityDate = data.MaturityDate is not null ? DateTime.SpecifyKind((DateTime)data.MaturityDate, DateTimeKind.Local).ToUniversalTime() : financerProduct.MaturityDate;
+                financerProduct.Type = data.Type ?? financerProduct.Type;
+                financerProduct.Price = data.Price ?? financerProduct.Price;
+                financerProduct.Quantity = data.Quantity ?? financerProduct.Quantity;
+                financerProduct.QuantityBought = data.QuantityBought ?? financerProduct.QuantityBought;
+                financerProduct.UpdatedDate = DateTime.UtcNow;
+                
+                _repository.Update(financerProduct);
                 _logger.LogInformation($"end service {nameof(Update)}");
             }
             catch (Exception ex)

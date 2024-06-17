@@ -44,7 +44,7 @@ namespace InvestManagerSystem.Services.UserService
                     throw new CustomException(HttpStatusCode.Unauthorized, "Invalid credentials.");
                 }
 
-                if (user.Type != userType || userType is not UserTypeEnum.Admin)
+                if (user.Type is not UserTypeEnum.Admin && user.Type != userType)
                 {
                     _logger.LogWarning($"Invalid credentials.");
                     throw new CustomException(HttpStatusCode.Forbidden, "User without permission for this login.");
