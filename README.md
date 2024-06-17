@@ -1,27 +1,27 @@
-# Sistema de Gest„o de PortfÛlio de Investimentos - Backend
+# Sistema de Gest√£o de Portf√≥lio de Investimentos - Backend
 
-## Sum·rio
+## Sum√°rio
 
-1. [IntroduÁ„o](#introduÁ„o)
-2. [PrÈ-requisitos](#prÈ-requisitos)
+1. [Introdu√ß√£o](#introdu√ß√£o)
+2. [Pr√©-requisitos](#pr√©-requisitos)
 3. [Primeiros passos](#primeiros-passos)
-   - [Vari·veis de ambiente](#vari·veis-de-ambiente)
+   - [Vari√°veis de ambiente](#vari√°veis-de-ambiente)
    - [Rodando o projeto](#rodando-o-projeto)
 4. [Estrutura](#estrutura)
 5. [Planejamento do projeto](#planejamento-do-projeto)
-6. [MÈtodos da API](#mÈtodos-da-api)
-7. [DependÍncias do projeto](#dependÍncias-do-projeto)
+6. [M√©todos da API](#m√©todos-da-api)
+7. [Depend√™ncias do projeto](#depend√™ncias-do-projeto)
 8. [Autor](#autor)
 
 
-## IntroduÁ„o
+## Introdu√ß√£o
 
-Esse projeto visa o desenvolvimento de um sistema para a gest„o de investimentos, logo, fazer com que os administradores possam gerenciar os produtos financeiros disponÌveis e que os clientes comprem, vendam e acompanhem seus investimentos.
+Esse projeto visa o desenvolvimento de um sistema para a gest√£o de investimentos, logo, fazer com que os administradores possam gerenciar os produtos financeiros dispon√≠veis e que os clientes comprem, vendam e acompanhem seus investimentos.
 
 
-## PrÈ-requisitos
+## Pr√©-requisitos
 
-Para rodar e dar build do projeto localmente vocÍ precisar· de algumas ferramentas:
+Para rodar e dar build do projeto localmente voc√™ precisar√° de algumas ferramentas:
 
 -   Instale [Visual Studio](https://visualstudio.microsoft.com/pt-br/downloads/)
 -   Instale [Docker](https://www.docker.com/products/docker-desktop/)
@@ -29,11 +29,11 @@ Para rodar e dar build do projeto localmente vocÍ precisar· de algumas ferrament
 
 ## Primeiros passos
 
-### Vari·veis de ambiente
+### Vari√°veis de ambiente
 
 ```json
   "ConnectionStrings": {
-    "DefaultConnection": "String de conex„o com banco" # (ex.: Host=localhost;Port=5433;Database=postgres;Username=admin;Password=admin)
+    "DefaultConnection": "String de conex√£o com banco" # (ex.: Host=localhost;Port=5433;Database=postgres;Username=admin;Password=admin)
   },
   "Logging": {
     "LogLevel": {
@@ -44,8 +44,8 @@ Para rodar e dar build do projeto localmente vocÍ precisar· de algumas ferrament
   "AllowedHosts": "*",
   "ProjectName": "Nome do projeto", # (InvestManagerSysten),
   "TokenConfig": {
-    "SecretToken": "Segredo para geraÁ„o do token",
-    "TokenValidityDays": 1 # Quantidade de dias atÈ expirar o token
+    "SecretToken": "Segredo para gera√ß√£o do token",
+    "TokenValidityDays": 1 # Quantidade de dias at√© expirar o token
   },
   "EmailSettings": {
     "From": "Email outlook",
@@ -57,7 +57,7 @@ Para rodar e dar build do projeto localmente vocÍ precisar· de algumas ferrament
 
 ### Rodando o projeto
 
-Antes de rodar o projeto, configure as vari·veis de ambiente no arquivo `appsettings` na root do Back.
+Antes de rodar o projeto, configure as vari√°veis de ambiente no arquivo `appsettings` na root do Back.
 
 Para rodar o projeto em modo de desenvolvimento:
 
@@ -73,25 +73,25 @@ Para rodar o projeto em modo de desenvolvimento:
 
 3. Aperte f5 ou clique em `http` na barra de ferramentas superior.
 
-Aguarde um tempo atÈ finalizar a compilaÁ„o, apÛs isso abrir· o servidor [http://localhost:5221/](http://localhost:5221/) apresentando o Swagger.
+Aguarde um tempo at√© finalizar a compila√ß√£o, ap√≥s isso abrir√° o servidor [http://localhost:5221/](http://localhost:5221/) apresentando o Swagger.
 
 
 ## Estrutura
--   **Auth**: ConfiguraÁ„o de autenticaÁ„o, como middleware de autenticaÁ„o, contexto do usu·rio e decorator de autorizaÁ„o;
--   **Controllers**: Camada de controllers da aplicaÁ„o;
+-   **Auth**: Configura√ß√£o de autentica√ß√£o, como middleware de autentica√ß√£o, contexto do usu√°rio e decorator de autoriza√ß√£o;
+-   **Controllers**: Camada de controllers da aplica√ß√£o;
 -   **Enums**: Enums utilizados;
--   **Global**: ConfiguraÁ„o e utilities utilizadas globalmente no projeto:
-    -   **Configs**: Estrutura para configs que s„o utilizadas no projeto, das quais saiem do appsettings;
-    -   **Database**: ConfiguraÁ„o para conex„o com banco e definiÁ„o de entidades;
-    -   **Helpers**: Utilit·rios globais do projeto;
-    -   **Injection**: ConfiguraÁ„o de principais injeÁıes do projeto (repositÛrio, serviÁo, etc.);
-    -   **Mapper**: Mapeador utilizando autoMapper entre DTO e entidades;
--   **Startup.cs**: Centralizador para inicializaÁ„o e injeÁ„o de dependÍncias no projeto.
--   **Interfaces**: DTO's, para transferÍncia de conte˙do entre diferentes camadas e funÁıes;
--   **Models**: DefiniÁ„o das entidades;
--   **Repositories**: Camada de repositÛrio, camada mais prÛxima ao banco de dados;
--   **Services**: Camada de serviÁo, onde estar„o as regras de negÛcio, tendo no m·ximo 1 repositÛrio para cada serviÁo;
--   **TaskScheduler**: Tasks a serem executadas no projetos (tarefas di·rias).
+-   **Global**: Configura√ß√£o e utilities utilizadas globalmente no projeto:
+  -   **Configs**: Estrutura para configs que s√£o utilizadas no projeto, das quais saiem do appsettings;
+  -   **Database**: Configura√ß√£o para conex√£o com banco e defini√ß√£o de entidades;
+  -   **Helpers**: Utilit√°rios globais do projeto;
+  -   **Injection**: Configura√ß√£o de principais inje√ß√µes do projeto (reposit√≥rio, servi√ßo, etc.);
+  -   **Mapper**: Mapeador utilizando autoMapper entre DTO e entidades;
+  -   **Startup.cs**: Centralizador para inicializa√ß√£o e inje√ß√£o de depend√™ncias no projeto.
+-   **Interfaces**: DTO's, para transfer√™ncia de conte√∫do entre diferentes camadas e fun√ß√µes;
+-   **Models**: Defini√ß√£o das entidades;
+-   **Repositories**: Camada de reposit√≥rio, camada mais pr√≥xima ao banco de dados;
+-   **Services**: Camada de servi√ßo, onde estar√£o as regras de neg√≥cio, tendo no m√°ximo 1 reposit√≥rio para cada servi√ßo;
+-   **TaskScheduler**: Tasks a serem executadas no projetos (tarefas di√°rias).
 
 
 ## Planejamento do projeto
@@ -101,19 +101,19 @@ O planejamento inicial do projeto e o DER podem ser acessados pelos seguintes li
 -   Acesse o [DER (Diagram-Entity-Relation)](https://dbdiagram.io/d/Sistema-de-Gestao-de-Portfolio-de-Investimentos-666c8cfca179551be6ecbc89)
 
 
-## MÈtodos da API
+## M√©todos da API
 
-Os mÈtodos que temos para a API s„o os seguintes:
+Os m√©todos que temos para a API s√£o os seguintes:
 -   _/ Admin
    -    _/ AdminAuth
       - Login Admin - POST /api/admin/auth/login
       - Registro de Admin - POST /api/admin/auth/register
    -    _/ FinancerProduct
-      - CriaÁ„o de produto - POST /api/admin/financer-product
+      - Cria√ß√£o de produto - POST /api/admin/financer-product
       - Listagem de produtos - GET /api/admin/financer-product
-      - VisualizaÁ„o de produto especÌfico - GET /api/admin/financer-product/{id}
-      - AtualizaÁ„o de produto - PUT /api/admin/financer-product/{id}
-      - RemoÁ„o de produto - DELETE /api/admin/financer-product/{id}
+      - Visualiza√ß√£o de produto espec√≠fico - GET /api/admin/financer-product/{id}
+      - Atualiza√ß√£o de produto - PUT /api/admin/financer-product/{id}
+      - Remo√ß√£o de produto - DELETE /api/admin/financer-product/{id}
 -   _/ Client
    -    _/ ClientAuth
       - Login Cliente: POST /api/client/auth/login
@@ -186,8 +186,8 @@ POST /api/admin/financer-product
 Body
 ```json
 {
-    "Name": "AÁıes",
-    "Description": "AÁıes na bolsa",
+    "Name": "A√ß√µes",
+    "Description": "A√ß√µes na bolsa",
     "Type": "Stocks",
     "MaturityDate": "2024-06-16",
     "InterestRate": 0.50,
@@ -208,8 +208,8 @@ Response 201 CREATED
 ```json
 {
     "id": 1,
-    "name": "AÁıes",
-    "description": "AÁıes na bolsa",
+    "name": "A√ß√µes",
+    "description": "A√ß√µes na bolsa",
     "type": "Stocks",
     "maturityDate": "2024-06-16",
     "interestRate": 0.50,
@@ -244,7 +244,7 @@ Response 200 OK
     },
     {
         "id": 3,
-        "name": "AÁıes",
+        "name": "A√ß√µes",
         "maturityDate": "2024-12-31T03:00:00Z",
         "quantity": 10000,
         "quantityBought": 950,
@@ -267,8 +267,8 @@ Response 200 OK
 ```json
 {
     "id": 1,
-    "name": "AÁıes",
-    "description": "AÁıes na bolsa",
+    "name": "A√ß√µes",
+    "description": "A√ß√µes na bolsa",
     "type": "Stocks",
     "maturityDate": "2024-06-16",
     "interestRate": 0.50,
@@ -286,7 +286,7 @@ PUT /api/admin/financer-product/{id}
 Body
 ```json
 {
-    "Description": "AÁıes na bolsa",
+    "Description": "A√ß√µes na bolsa",
 }
 ```
 
@@ -373,7 +373,7 @@ POST /api/client/investment/buy
 Body
 ```json
 {
-    "FinancerProductName": "AÁıes",
+    "FinancerProductName": "A√ß√µes",
     "Amount": 1000
 }
 ```
@@ -394,7 +394,7 @@ POST /api/client/investment/sell
 Body
 ```json
 {
-    "FinancerProductName": "AÁıes",
+    "FinancerProductName": "A√ß√µes",
     "Amount": 1000
 }
 ```
@@ -489,9 +489,9 @@ Response 200 OK
 ---
 
 
-## DependÍncias do projeto
+## Depend√™ncias do projeto
 
-| Pacote                                        | DescriÁ„o                                                          |
+| Pacote                                        | Descri√ß√£o                                                          |
 | --------------------------------------------- | ------------------------------------------------------------------ |
 | **AutoMapper**                                | Mapeamento de objetos (Entidade->Dto).                             |
 | **BCrypt.Net-Next**                           | Hashing de senhas com BCrypt.                                      |
@@ -499,17 +499,17 @@ Response 200 OK
 | **Microsoft.EntityFrameworkCore**             | ORM para trabalhar com bancos de dados relacionais.                |
 | **Microsoft.EntityFrameworkCore.Design**      | Auxiliar de design para EF Core.                                   |
 | **Microsoft.EntityFrameworkCore.Tools**       | CLI para EF Core.                                                  |
-| **Microsoft.Extensions.Logging**              | Extensıes de logs                                                  |
-| **Npgsql**                                    | Provider para conex„o PostgreSQL com database.                     |
+| **Microsoft.Extensions.Logging**              | Extens√µes de logs                                                  |
+| **Npgsql**                                    | Provider para conex√£o PostgreSQL com database.                     |
 | **Npgsql.EntityFrameworkCore.PostgreSQL**     | Provider PostgreSQL para EF Core.                                  |
-| **Swashbuckle.AspNetCore**                    | Ferramenta para gerar documentaÁ„o Swagger para APIs.              |
+| **Swashbuckle.AspNetCore**                    | Ferramenta para gerar documenta√ß√£o Swagger para APIs.              |
 | **Swashbuckle.AspNetCore.Swagger**            | Componente Swagger para Swashbuckle.                               |
 | **Swashbuckle.AspNetCore.SwaggerGen**         | Componente SwaggerGen para Swashbuckle.                            |
-| **System.IdentityModel.Tokens.Jwt**           | Biblioteca para ManipulaÁ„o de JWT.                                |
+| **System.IdentityModel.Tokens.Jwt**           | Biblioteca para Manipula√ß√£o de JWT.                                |
 
 
 ## Autor
 
 -   Nome: Willer Santos
--   Local: S„o Paulo, SP
--   Formado: Engenheiro QuÌmico, Escola PolitÈcnica da USP
+-   Local: S√£o Paulo, SP
+-   Formado: Engenheiro Qu√≠mico, Escola Polit√©cnica da USP
