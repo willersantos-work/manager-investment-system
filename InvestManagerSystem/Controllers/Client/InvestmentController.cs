@@ -2,7 +2,6 @@
 using InvestManagerSystem.Interfaces.Investment;
 using InvestManagerSystem.Interfaces.Transaction;
 using InvestManagerSystem.Services.InvestmentService;
-using InvestManagerSystem.Auth.Decorators;
 using InvestManagerSystem.Auth.Context;
 using InvestManagerSystem.Global.Helpers.ApiPrefix;
 
@@ -10,7 +9,6 @@ namespace InvestManagerSystem.Controllers.Client
 {
     [ApiController]
     [Route(ApiPrefix.Client + "investment")]
-    [Authorize]
     public class ClientInvestmentController : ControllerBase
     {
         private readonly ILogger<ClientInvestmentController> _logger;

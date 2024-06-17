@@ -26,10 +26,10 @@ namespace InvestManagerSystem.Controllers.Admin
         // POST /api/admin/auth/login
         [Route("login")]
         [HttpPost]
-        public ActionResult<CredentialResponseDto> Login([FromBody] CredentialDto credential)
+        public async Task<ActionResult<CredentialResponseDto>> Login([FromBody] CredentialDto credential)
         {
             _logger.LogInformation($"start method {nameof(Login)}");
-            var response = _authService.LoginAdmin(credential);
+            var response = await _authService.LoginAdmin(credential);
             return Ok(response);
         }
 

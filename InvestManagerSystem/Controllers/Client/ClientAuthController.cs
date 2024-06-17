@@ -4,7 +4,6 @@ using InvestManagerSystem.Interfaces.User;
 using InvestManagerSystem.Interfaces.Auth;
 using InvestManagerSystem.Services.AuthService;
 using InvestManagerSystem.Enums;
-using InvestManagerSystem.Auth.Decorators;
 using InvestManagerSystem.Global.Helpers.ApiPrefix;
 
 namespace InvestManagerSystem.Controllers.Client
@@ -27,10 +26,10 @@ namespace InvestManagerSystem.Controllers.Client
         // POST /api/client/auth/login
         [Route("login")]
         [HttpPost]
-        public ActionResult<CredentialResponseDto> Login([FromBody] CredentialDto credential)
+        public async Task<ActionResult<CredentialResponseDto>> Login([FromBody] CredentialDto credential)
         {
             _logger.LogInformation($"start method {nameof(Login)}");
-            var response = _authService.LoginClient(credential);
+            var response = await _authService.LoginClient(credential);
             return Ok(response);
         }
 

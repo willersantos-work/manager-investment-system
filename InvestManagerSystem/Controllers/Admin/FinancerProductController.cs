@@ -2,14 +2,12 @@
 using InvestManagerSystem.Interfaces.FinancerProduct;
 using InvestManagerSystem.Services.FinancerProductService;
 using InvestManagerSystem.Models;
-using Microsoft.AspNetCore.Authorization;
 using InvestManagerSystem.Global.Helpers.ApiPrefix;
 
 namespace InvestManagerSystem.Controllers.Admin
 {
     [Route(ApiPrefix.Admin + "financer-product")]
     [ApiController]
-    [Authorize]
     public class FinancerProductController : ControllerBase
     {
         private readonly ILogger<FinancerProductController> _logger;
@@ -32,7 +30,7 @@ namespace InvestManagerSystem.Controllers.Admin
 
         // GET /api/admin/financer-product
         [HttpGet]
-        public ActionResult<IList<FinancerProductDto>> GetAll()
+        public ActionResult<IList<FinancerProductListDto>> GetAll()
         {
             _logger.LogInformation($"start method {nameof(GetAll)}");
             var response = _financerProductService.GetAll();
