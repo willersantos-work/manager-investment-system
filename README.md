@@ -81,12 +81,12 @@ Aguarde um tempo até finalizar a compilação, após isso abrirá o servidor [h
 -   **Controllers**: Camada de controllers da aplicação;
 -   **Enums**: Enums utilizados;
 -   **Global**: Configuração e utilities utilizadas globalmente no projeto:
-  -   **Configs**: Estrutura para configs que são utilizadas no projeto, das quais saiem do appsettings;
-  -   **Database**: Configuração para conexão com banco e definição de entidades;
-  -   **Helpers**: Utilitários globais do projeto;
-  -   **Injection**: Configuração de principais injeções do projeto (repositório, serviço, etc.);
-  -   **Mapper**: Mapeador utilizando autoMapper entre DTO e entidades;
-  -   **Startup.cs**: Centralizador para inicialização e injeção de dependências no projeto.
+    -   **Configs**: Estrutura para configs que são utilizadas no projeto, das quais saiem do appsettings;
+    -   **Database**: Configuração para conexão com banco e definição de entidades;
+    -   **Helpers**: Utilitários globais do projeto;
+    -   **Injection**: Configuração de principais injeções do projeto (repositório, serviço, etc.);
+    -   **Mapper**: Mapeador utilizando autoMapper entre DTO e entidades;
+-   **Startup.cs**: Centralizador para inicialização e injeção de dependências no projeto.
 -   **Interfaces**: DTO's, para transferência de conteúdo entre diferentes camadas e funções;
 -   **Models**: Definição das entidades;
 -   **Repositories**: Camada de repositório, camada mais próxima ao banco de dados;
@@ -119,11 +119,11 @@ Os métodos que temos para a API são os seguintes:
       - Login Cliente: POST /api/client/auth/login
       - Registro de Cliente: POST /api/client/auth/register
    -    _/ Investment
-      - Transa��o de compra - POST /api/client/investment/buy
-      - Transa��o de venda - POST /api/client/investment/sell
-      - Visualiza��o de investimento do cliente - GET /api/client/investment
-      - Visualiza��o de investimento - GET /api/client/investment/{id}
-      - Visualiza��o de extrato de transa��es - GET /api/client/investment/{id}/statement
+      - Transação de compra - POST /api/client/investment/buy
+      - Transação de venda - POST /api/client/investment/sell
+      - Visualização de investimento do cliente - GET /api/client/investment
+      - Visualização de investimento - GET /api/client/investment/{id}
+      - Visualização de extrato de transações - GET /api/client/investment/{id}/statement
 
 ---
 
@@ -180,7 +180,7 @@ Response 201 CREATED
 #### **FinancerProductController**
 
 ---
-##### **Cria��o de produto**
+##### **Criação de produto**
 POST /api/admin/financer-product
 
 Body
@@ -253,7 +253,7 @@ Response 200 OK
 ]
 ```
 ---
-##### **Visualiza��o de produto espec�fico**
+##### **Visualização de produto específico**
 GET /api/admin/financer-product/{id}
 
 Header
@@ -280,7 +280,7 @@ Response 200 OK
 }
 ```
 ---
-##### **Atualiza��o de produto**
+##### **Atualização de produto**
 PUT /api/admin/financer-product/{id}
 
 Body
@@ -300,7 +300,7 @@ Header
 Response 200 OK
 
 ---
-##### **Remo��o de produto**
+##### **Remoção de produto**
 DELETE /api/admin/financer-product/{id}
 
 Header
@@ -367,7 +367,7 @@ Response 201 CREATED
 #### **InvestmentController**
 
 ---
-##### **Transa��o de compra**
+##### **Transação de compra**
 POST /api/client/investment/buy
 
 Body
@@ -388,7 +388,7 @@ Header
 Response 200 OK
 
 ---
-##### **Transa��o de venda**
+##### **Transação de venda**
 POST /api/client/investment/sell
 
 Body
@@ -409,7 +409,7 @@ Header
 Response 200 OK
 
 ---
-##### **Visualiza��o de investimento do cliente**
+##### **Visualização de investimento do cliente**
 GET /api/client/investment
 
 Header
@@ -434,7 +434,7 @@ Response 200 OK
 ]
 ```
 ---
-##### **Visualiza��o de investimento**
+##### **Visualização de investimento**
 GET /api/client/investment/{id}
 
 Header
@@ -457,7 +457,7 @@ Response 200 OK
 }
 ```
 ---
-##### **Visualiza��o de extrato de transa��es**
+##### **Visualização de extrato de transações**
 GET /api/client/investment/{id}/statement
 
 Header
