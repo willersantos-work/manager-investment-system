@@ -17,6 +17,7 @@ namespace InvestManagerSystem.Global.Mapper
             {
                 // Financer Product
                 cfg.CreateMap<FinancerProduct, FinancerProductDto>().ReverseMap();
+                cfg.CreateMap<FinancerProduct, FinancerProductListDto>().ReverseMap();
                 cfg.CreateMap<FinancerProductCreateDto, FinancerProduct>().ReverseMap();
 
                 // User

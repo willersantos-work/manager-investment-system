@@ -12,12 +12,12 @@ namespace InvestManagerSystem.Global.Injection
     {
         public static IServiceCollection ServiceLayerInjection(this IServiceCollection services)
         {
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IFinancerProductService, FinancerProductService>();
             services.AddScoped<IInvestmentService, InvestmentService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IEmailService, EmailService>();
 
             return services;

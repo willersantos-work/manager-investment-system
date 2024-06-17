@@ -4,10 +4,15 @@ using Microsoft.OpenApi.Models;
 using InvestManagerSystem.Global.Injection;
 using static InvestManagerSystem.Global.Injection.ConfigInjection;
 using InvestManagerSystem.Global.Helpers.CustomException;
-using InvestManagerSystem.Auth.Middlewares;
 using Coravel;
-using InvestManagerSystem.TaskScheduler.Tasks;
 using InvestManagerSystem.TaskScheduler;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using InvestManagerSystem.Auth.Middlewares;
 
 namespace InvestManagerSystem.Global
 {
@@ -94,6 +99,12 @@ namespace InvestManagerSystem.Global
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
 
+                // Apply CORS policy
+                app.UseCors(x => x
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+
                 // Create Swagger
                 app.UseSwagger();
                 app.UseSwaggerUI(options => {
@@ -116,7 +127,6 @@ namespace InvestManagerSystem.Global
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // Exposing endpoints in app
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

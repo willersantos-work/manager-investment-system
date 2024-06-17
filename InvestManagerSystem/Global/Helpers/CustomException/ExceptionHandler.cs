@@ -28,38 +28,64 @@ namespace InvestManagerSystem.Global.Helpers.CustomException
             }
         }
 
-        private static Task HandleHttpExceptionAsync(HttpContext context, CustomException ex)
+        private static async Task HandleHttpExceptionAsync(HttpContext context, CustomException ex)
         {
-            context.Response.StatusCode = (int)ex.StatusCode;
-            context.Response.ContentType = "application/json";
-
-            var errorResponse = new
+            if (context.Response.HasStarted)
             {
-                error = new
-                {
-                    message = ex.Message,
-                    statusCode = ex.StatusCode
-                }
-            };
+                Console.WriteLine("The response has already started, the http status code middleware will not be executed.");
+                return;
+            }
 
-            return context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
+            try
+            {
+                context.Response.StatusCode = (int)ex.StatusCode;
+                context.Response.ContentType = "application/json";
+
+                var errorResponse = new
+                {
+                    error = new
+                    {
+                        message = ex.Message,
+                        statusCode = ex.StatusCode
+                    }
+                };
+
+                await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
+            }
+            catch (Exception writeException)
+            {
+                Console.WriteLine($"An error occurred while writing the response: {writeException}");
+            }
         }
 
-        private static Task HandleInternalServerErrorAsync(HttpContext context, Exception ex)
+        private static async Task HandleInternalServerErrorAsync(HttpContext context, Exception ex)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            context.Response.ContentType = "application/json";
-
-            var errorResponse = new
+            if (context.Response.HasStarted)
             {
-                error = new
-                {
-                    message = "Internal Server Error",
-                    statusCode = HttpStatusCode.InternalServerError
-                }
-            };
+                Console.WriteLine("The response has already started, the http status code middleware will not be executed.");
+                return;
+            }
 
-            return context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
+            try
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.ContentType = "application/json";
+
+                var errorResponse = new
+                {
+                    error = new
+                    {
+                        message = "Internal Server Error",
+                        statusCode = HttpStatusCode.InternalServerError
+                    }
+                };
+
+                await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
+            }
+            catch (Exception writeException)
+            {
+                Console.WriteLine($"An error occurred while writing the response: {writeException}");
+            }
         }
     }
 }

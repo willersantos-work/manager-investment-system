@@ -1,5 +1,4 @@
 ﻿using InvestManagerSystem.Global.Configs;
-using static InvestManagerSystem.Global.Injection.ConfigInjection;
 
 namespace InvestManagerSystem.Global.Injection
 {
