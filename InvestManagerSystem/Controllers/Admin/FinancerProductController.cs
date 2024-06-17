@@ -3,6 +3,8 @@ using InvestManagerSystem.Interfaces.FinancerProduct;
 using InvestManagerSystem.Services.FinancerProductService;
 using InvestManagerSystem.Models;
 using InvestManagerSystem.Global.Helpers.ApiPrefix;
+using InvestManagerSystem.Auth.Decorator;
+using InvestManagerSystem.Enums;
 
 namespace InvestManagerSystem.Controllers.Admin
 {
@@ -21,6 +23,7 @@ namespace InvestManagerSystem.Controllers.Admin
 
         // POST /api/admin/financer-product
         [HttpPost]
+        [Permission(UserTypeEnum.Admin)]
         public ActionResult<FinancerProduct> Create([FromBody] FinancerProductCreateDto newFinancerProduct)
         {
             _logger.LogInformation($"start method {nameof(Create)}");
@@ -48,6 +51,7 @@ namespace InvestManagerSystem.Controllers.Admin
 
         // PUT /api/admin/financer-product/{id}
         [HttpPut("{id}")]
+        [Permission(UserTypeEnum.Admin)]
         public IActionResult Update(int id, [FromBody] FinancerProductUpdateDto financerProduct)
         {
             _logger.LogInformation($"start method {nameof(Update)}");
@@ -57,6 +61,7 @@ namespace InvestManagerSystem.Controllers.Admin
 
         // DELETE /api/admin/financer-product/{id}
         [HttpDelete("{id}")]
+        [Permission(UserTypeEnum.Admin)]
         public IActionResult Delete(int id)
         {
             _logger.LogInformation($"start method {nameof(Delete)}");
