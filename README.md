@@ -77,21 +77,21 @@ Aguarde um tempo até finalizar a compilação, após isso abrirá o servidor [h
 
 
 ## Estrutura
--   **Auth**: Configuração de autenticação, como middleware de autenticação, contexto do usuário e decorator de autorização;
--   **Controllers**: Camada de controllers da aplicação;
--   **Enums**: Enums utilizados;
--   **Global**: Configuração e utilities utilizadas globalmente no projeto:
-    -   **Configs**: Estrutura para configs que são utilizadas no projeto, das quais saiem do appsettings;
-    -   **Database**: Configuração para conexão com banco e definição de entidades;
-    -   **Helpers**: Utilitários globais do projeto;
-    -   **Injection**: Configuração de principais injeções do projeto (repositório, serviço, etc.);
-    -   **Mapper**: Mapeador utilizando autoMapper entre DTO e entidades;
--   **Startup.cs**: Centralizador para inicialização e injeção de dependências no projeto.
--   **Interfaces**: DTO's, para transferência de conteúdo entre diferentes camadas e funções;
--   **Models**: Definição das entidades;
--   **Repositories**: Camada de repositório, camada mais próxima ao banco de dados;
--   **Services**: Camada de serviço, onde estarão as regras de negócio, tendo no máximo 1 repositório para cada serviço;
--   **TaskScheduler**: Tasks a serem executadas no projetos (tarefas diárias).
+- **Auth**: Configuração de autenticação, como middleware de autenticação, contexto do usuário e decorator de autorização;
+- **Controllers**: Camada de controllers da aplicação;
+- **Enums**: Enums utilizados;
+- **Global**: Configuração e utilities utilizadas globalmente no projeto:
+    - **Configs**: Estrutura para configs que são utilizadas no projeto, das quais saiem do appsettings;
+    - **Database**: Configuração para conexão com banco e definição de entidades;
+    - **Helpers**: Utilitários globais do projeto;
+    - **Injection**: Configuração de principais injeções do projeto (repositório, serviço, etc.);
+    - **Mapper**: Mapeador utilizando autoMapper entre DTO e entidades;
+- **Startup.cs**: Centralizador para inicialização e injeção de dependências no projeto.
+- **Interfaces**: DTO's, para transferência de conteúdo entre diferentes camadas e funções;
+- **Models**: Definição das entidades;
+- **Repositories**: Camada de repositório, camada mais próxima ao banco de dados;
+- **Services**: Camada de serviço, onde estarão as regras de negócio, tendo no máximo 1 repositório para cada serviço;
+- **TaskScheduler**: Tasks a serem executadas no projetos (tarefas diárias).
 
 
 ## Planejamento do projeto
@@ -104,21 +104,21 @@ O planejamento inicial do projeto e o DER podem ser acessados pelos seguintes li
 ## Métodos da API
 
 Os métodos que temos para a API são os seguintes:
--   _/ Admin
-   -    _/ AdminAuth
+- _/ Admin
+   - _/ AdminAuth
       - Login Admin - POST /api/admin/auth/login
       - Registro de Admin - POST /api/admin/auth/register
-   -    _/ FinancerProduct
-      - Criação de produto - POST /api/admin/financer-product
+   - _/ FinancerProduct
+      - Criação de produto - POST /api/admin/financer-product (Somente administradores)
       - Listagem de produtos - GET /api/admin/financer-product
       - Visualização de produto específico - GET /api/admin/financer-product/{id}
-      - Atualização de produto - PUT /api/admin/financer-product/{id}
-      - Remoção de produto - DELETE /api/admin/financer-product/{id}
--   _/ Client
-   -    _/ ClientAuth
+      - Atualização de produto - PUT /api/admin/financer-product/{id} (Somente administradores)
+      - Remoção de produto - DELETE /api/admin/financer-product/{id} (Somente administradores)
+- _/ Client
+   - _/ ClientAuth
       - Login Cliente: POST /api/client/auth/login
       - Registro de Cliente: POST /api/client/auth/register
-   -    _/ Investment
+   - _/ Investment
       - Transação de compra - POST /api/client/investment/buy
       - Transação de venda - POST /api/client/investment/sell
       - Visualização de investimento do cliente - GET /api/client/investment
