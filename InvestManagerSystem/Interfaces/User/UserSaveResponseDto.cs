@@ -1,4 +1,5 @@
 ﻿using InvestManagerSystem.Enums;
+using System.Text.Json.Serialization;
 
 namespace InvestManagerSystem.Interfaces.User
 {
@@ -10,6 +11,7 @@ namespace InvestManagerSystem.Interfaces.User
 
         public string Email { get; set; } = null!;
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public UserTypeEnum Type { get; set; }
     }
 }

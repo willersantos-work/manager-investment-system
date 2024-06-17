@@ -1,4 +1,5 @@
 ﻿using InvestManagerSystem.Enums;
+using System.Text.Json.Serialization;
 
 namespace InvestManagerSystem.Interfaces.FinancerProduct
 {
@@ -10,6 +11,7 @@ namespace InvestManagerSystem.Interfaces.FinancerProduct
 
         public string Description { get; set; } = null!;
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ProductTypeEnum Type { get; set; }
 
         public DateTime MaturityDate { get; set; }
