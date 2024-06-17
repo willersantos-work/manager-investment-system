@@ -1,6 +1,6 @@
-﻿using InvestManagerSystem.Auth.Decorators;
-using InvestManagerSystem.Enums;
+﻿using InvestManagerSystem.Enums;
 using InvestManagerSystem.Global.Configs;
+using InvestManagerSystem.Global.Helpers.ApiPrefix;
 using InvestManagerSystem.Global.Helpers.CustomException;
 using InvestManagerSystem.Interfaces.User;
 using Microsoft.Extensions.Options;
@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
-using System.Text.Json;
 
 namespace InvestManagerSystem.Auth.Middlewares
 {
@@ -17,6 +16,7 @@ namespace InvestManagerSystem.Auth.Middlewares
         private readonly RequestDelegate _next;
         private readonly ILogger<AuthMiddleware> _logger;
         private readonly TokenConfig _tokenConfig;
+        private readonly IList<string> _preAuthorizedPaths = new List<string> { ApiPrefix.Client + "auth", ApiPrefix.Admin + "auth" };
 
         public AuthMiddleware(RequestDelegate next, ILogger<AuthMiddleware> logger, IOptions<TokenConfig> tokenConfig)
         {
@@ -27,33 +27,15 @@ namespace InvestManagerSystem.Auth.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            var endpoint = context.GetEndpoint();
+            string path = context.Request.Path.Value ?? "";
 
-            bool isAuthorized = endpoint?.Metadata.GetMetadata<AuthorizeAttribute>() is not null;
-
-            if (isAuthorized)
-            {
+            if (_preAuthorizedPaths.Any(preAuthorizedPath => path.Contains(preAuthorizedPath)))
                 await _next(context);
-                return;
-            }
 
             if (!context.Request.Headers.TryGetValue("Authorization", out var token))
             {
                 _logger.LogWarning("Undefined token.");
-                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                context.Response.ContentType = "application/json";
-
-                var errorResponse = new
-                {
-                    error = new
-                    {
-                        message = "Invalid token.",
-                        statusCode = HttpStatusCode.Unauthorized
-                    }
-                };
-
-                await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
-                return;
+                throw new CustomException(HttpStatusCode.Unauthorized, "Invalid token");
             }
 
             try
@@ -62,20 +44,8 @@ namespace InvestManagerSystem.Auth.Middlewares
                 if (tokenValues.Length != 2 || tokenValues[0] != "Bearer")
                 {
                     _logger.LogWarning("Invalid token.");
-                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    context.Response.ContentType = "application/json";
+                    throw new CustomException(HttpStatusCode.Unauthorized, "Invalid token");
 
-                    var errorResponse = new
-                    {
-                        error = new
-                        {
-                            message = "Invalid token.",
-                            statusCode = HttpStatusCode.Unauthorized
-                        }
-                    };
-
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
-                    return;
                 }
 
                 token = tokenValues?[1];
@@ -99,20 +69,7 @@ namespace InvestManagerSystem.Auth.Middlewares
                 if (expirationDateClaim == null || DateTimeOffset.FromUnixTimeSeconds(long.Parse(expirationDateClaim)) < DateTimeOffset.UtcNow)
                 {
                     _logger.LogWarning("Expired token.");
-                    context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                    context.Response.ContentType = "application/json";
-
-                    var errorResponse = new
-                    {
-                        error = new
-                        {
-                            message = "Expired token.",
-                            statusCode = HttpStatusCode.Unauthorized
-                        }
-                    };
-
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
-                    return;
+                    throw new CustomException(HttpStatusCode.Unauthorized, "Expired token");
                 }
 
                 var user = new UserSaveResponseDto
@@ -127,23 +84,9 @@ namespace InvestManagerSystem.Auth.Middlewares
 
                 await _next(context);
             }
-            catch (Exception ex)
+            catch (CustomException ex)
             {
-                _logger.LogError(ex, "Token validation failed.");
-                context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                context.Response.ContentType = "application/json";
-
-                var errorResponse = new
-                {
-                    error = new
-                    {
-                        message = "Invalid token.",
-                        statusCode = HttpStatusCode.Unauthorized
-                    }
-                };
-
-                await context.Response.WriteAsync(JsonSerializer.Serialize(errorResponse));
-                return;
+                throw new CustomException(ex.StatusCode, ex.Message);
             }
         }
     }
